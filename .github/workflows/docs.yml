@@ -15,6 +15,15 @@ on:
     - 'platforms/**'
     - 'docs/**'
     - '.github/workflows/docs.yml'
+  pull_request:
+    paths:
+    - 'builddefs/docsgen/**'
+    - 'docs/**'
+    - '.github/workflows/docs.yml'
+
+defaults:
+  run:
+    shell: bash
 
 defaults:
   run:
@@ -25,9 +34,12 @@ jobs:
     runs-on: ubuntu-latest
     container: ghcr.io/qmk/qmk_cli
 
+<<<<<<< Updated upstream
     # protect against those who develop with their fork on master
     if: github.repository == 'qmk/qmk_firmware' || (github.repository == 'tzarc/qmk_firmware' && github.ref == 'refs/heads/vitepress')
 
+=======
+>>>>>>> Stashed changes
     steps:
     - uses: actions/checkout@v4
       with:
@@ -35,10 +47,17 @@ jobs:
 
     - name: Install dependencies
       run: |
+<<<<<<< Updated upstream
         apt-get update && apt-get install -y rsync doxygen curl
         # install nvm
         touch $HOME/.bashrc
         curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+=======
+        apt-get update && apt-get install -y rsync doxygen
+        # install nvm
+        touch $HOME/.bashrc
+        wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+>>>>>>> Stashed changes
 
     - name: Install node
       run: |
@@ -46,7 +65,10 @@ jobs:
         nvm install 20
         nvm use 20
         corepack enable
+<<<<<<< Updated upstream
         npm install -g moxygen
+=======
+>>>>>>> Stashed changes
 
     - name: Build docs
       run: |
@@ -68,7 +90,11 @@ jobs:
         echo 'vitepress.qmk.fm' > .build/docs/CNAME
 
     - name: Deploy
+<<<<<<< Updated upstream
       if: github.repository == 'qmk/qmk_firmware'
+=======
+      if: ${{ github.event_name == 'push' && github.repository == 'qmk/qmk_firmware' }}
+>>>>>>> Stashed changes
       uses: JamesIves/github-pages-deploy-action@v4.6.1
       with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -76,6 +102,7 @@ jobs:
           folder: .build/docs
           git-config-name: QMK Bot
           git-config-email: hello@qmk.fm
+<<<<<<< Updated upstream
 
     - name: Deploy
       if: github.repository == 'tzarc/qmk_firmware'
@@ -83,3 +110,5 @@ jobs:
       with:
         branch: gh-pages
         folder: .build/docs
+=======
+>>>>>>> Stashed changes

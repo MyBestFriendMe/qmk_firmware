@@ -806,12 +806,15 @@ By setting `RGB_MATRIX_CUSTOM_USER = yes` in `rules.mk`, new effects can be defi
 ::: tip
 Hardware maintainers who want to limit custom effects to a specific keyboard can create a `rgb_matrix_kb.inc` file in the root of the keyboard directory, and add `RGB_MATRIX_CUSTOM_KB = yes` to the keyboard level `rules.mk`.
 :::
+<<<<<<< Updated upstream
 
 To use custom effects in your code, simply prepend `RGB_MATRIX_CUSTOM_` to the effect name specified in `RGB_MATRIX_EFFECT()`. For example, an effect declared as `RGB_MATRIX_EFFECT(my_cool_effect)` would be referenced with:
 
 ```c
 rgb_matrix_mode(RGB_MATRIX_CUSTOM_my_cool_effect);
 ```
+=======
+>>>>>>> Stashed changes
 
 ```c
 // !!! DO NOT ADD #pragma once !!! //
@@ -854,6 +857,12 @@ static bool my_cool_effect2(effect_params_t* params) {
 }
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+```
+
+To switch to your custom effect programmatically, simply call `rgb_matrix_mode()` and prepend `RGB_MATRIX_CUSTOM_` to the effect name you specified in `RGB_MATRIX_EFFECT()`. For example, an effect declared as `RGB_MATRIX_EFFECT(my_cool_effect)` would be referenced with:
+
+```c
+rgb_matrix_mode(RGB_MATRIX_CUSTOM_my_cool_effect);
 ```
 
 For inspiration and examples, check out the built-in effects under `quantum/rgb_matrix/animations/`.
@@ -914,6 +923,7 @@ These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master
 
 The EEPROM for it is currently shared with the LED Matrix system (it's generally assumed only one feature would be used at a time).
 
+<<<<<<< Updated upstream
 ## Functions {#functions}
 
 ### Direct Operation {#direct-operation}
@@ -981,6 +991,10 @@ The EEPROM for it is currently shared with the LED Matrix system (it's generally
 
 ## Callbacks {#callbacks}
 
+=======
+## Callbacks {#callbacks}
+
+>>>>>>> Stashed changes
 ### Indicators {#indicators}
 
 If you want to set custom indicators, such as an LED for Caps Lock, or layer indication, then you can use the `rgb_matrix_indicators_kb` function on the keyboard level source file, or `rgb_matrix_indicators_user` function in the user `keymap.c`.
@@ -1072,9 +1086,9 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     HSV hsv = {0, 255, 255};
 
     if (layer_state_is(layer_state, 2)) {
-        hsv = {130, 255, 255};
+        hsv = (HSV){130, 255, 255};
     } else {
-        hsv = {30, 255, 255};
+        hsv = (HSV){30, 255, 255};
     }
 
     if (hsv.v > rgb_matrix_get_val()) {
@@ -1117,3 +1131,409 @@ void keyboard_post_init_user(void) {
     rgb_matrix_sethsv_noeeprom(HSV_OFF);
 }
 ```
+
+## API {#api}
+
+### `void rgb_matrix_toggle(void)` {#api-rgb-matrix-toggle}
+
+Toggle RGB Matrix on or off.
+
+---
+
+### `void rgb_matrix_toggle_noeeprom(void)` {#api-rgb-matrix-toggle-noeeprom}
+
+Toggle RGB Matrix on or off. New state is not written to EEPROM.
+
+---
+
+### `void rgb_matrix_enable(void)` {#api-rgb-matrix-enable}
+
+Turn RGB Matrix on.
+
+---
+
+### `void rgb_matrix_enable_noeeprom(void)` {#api-rgb-matrix-enable-noeeprom}
+
+Turn RGB Matrix on. New state is not written to EEPROM.
+
+---
+
+### `void rgb_matrix_disable(void)` {#api-rgb-matrix-disable}
+
+Turn RGB Matrix off.
+
+---
+
+### `void rgb_matrix_disable_noeeprom(void)` {#api-rgb-matrix-disable-noeeprom}
+
+Turn RGB Matrix off. New state is not written to EEPROM.
+
+---
+
+### `bool rgb_matrix_is_enabled(void)` {#api-rgb-matrix-is-enabled}
+
+Get the current enabled state of RGB Matrix.
+
+#### Return Value {#api-rgb-matrix-is-enabled-return}
+
+`true` if RGB Matrix is enabled.
+
+---
+
+### `void rgb_matrix_set_color(uint8_t index, uint8_t r, uint8_t g, uint8_t b)` {#api-rgb-matrix-set-color}
+
+Set the color of a single LED.
+
+This function can only be run from within an effect or indicator callback, otherwise the currently running animation will simply overwrite it on the next frame.
+
+#### Arguments {#api-rgb-matrix-set-color-arguments}
+
+ - `uint8_t index`  
+   The LED index, from 0 to `RGB_MATRIX_LED_COUNT - 1`.
+ - `uint8_t r`  
+   The red value to set.
+ - `uint8_t g`  
+   The green value to set.
+ - `uint8_t b`  
+   The blue value to set.
+
+---
+
+### `void rgb_matrix_set_color_all(uint8_t r, uint8_t g, uint8_t b)` {#api-rgb-matrix-set-color-all}
+
+Set the color of all LEDs.
+
+This function can only be run from within an effect or indicator callback, otherwise the currently running animation will simply overwrite it on the next frame.
+
+#### Arguments {#api-rgb-matrix-set-color-all-arguments}
+
+ - `uint8_t r`  
+   The red value to set.
+ - `uint8_t g`  
+   The green value to set.
+ - `uint8_t b`  
+   The blue value to set.
+
+---
+
+### `void rgb_matrix_mode(uint8_t mode)` {#api-rgb-matrix-mode}
+
+Set the currently running effect.
+
+#### Arguments {#api-rgb-matrix-mode-arguments}
+
+ - `uint8_t mode`  
+   The effect to switch to.
+
+---
+
+### `void rgb_matrix_mode_noeeprom(uint8_t mode)` {#api-rgb-matrix-mode-noeeprom}
+
+Set the currently running effect. New state is not written to EEPROM.
+
+#### Arguments {#api-rgb-matrix-mode-noeeprom-arguments}
+
+ - `uint8_t mode`  
+   The effect to switch to.
+
+---
+
+### `void rgb_matrix_step(void)` {#api-rgb-matrix-step}
+
+Move to the next enabled effect.
+
+---
+
+### `void rgb_matrix_step_noeeprom(void)` {#api-rgb-matrix-step-noeeprom}
+
+Move to the next enabled effect. New state is not written to EEPROM.
+
+---
+
+### `void rgb_matrix_step_reverse(void)` {#api-rgb-matrix-step-reverse}
+
+Move to the previous enabled effect.
+
+---
+
+### `void rgb_matrix_step_reverse_noeeprom(void)` {#api-rgb-matrix-step-reverse-noeeprom}
+
+Move to the previous enabled effect. New state is not written to EEPROM.
+
+---
+
+### `uint8_t rgb_matrix_get_mode(void)` {#api-rgb-matrix-get-mode}
+
+Get the currently running effect.
+
+#### Return Value {#api-rgb-matrix-get-mode-return}
+
+The index of the currently running effect.
+
+---
+
+### `void rgb_matrix_increase_hue(void)` {#api-rgb-matrix-increase-hue}
+
+Increase the global effect hue.
+
+---
+
+### `void rgb_matrix_increase_hue_noeeprom(void)` {#api-rgb-matrix-increase-hue-noeeprom}
+
+Increase the global effect hue. New state is not written to EEPROM.
+
+---
+
+### `void rgb_matrix_decrease_hue(void)` {#api-rgb-matrix-decrease-hue}
+
+Decrease the global effect hue.
+
+---
+
+### `void rgb_matrix_decrease_hue_noeeprom(void)` {#api-rgb-matrix-decrease-hue-noeeprom}
+
+Decrease the global effect hue. New state is not written to EEPROM.
+
+---
+
+### `uint8_t rgb_matrix_get_hue(void)` {#api-rgb-matrix-get-hue}
+
+Get the current global effect hue.
+
+#### Return Value {#api-rgb-matrix-get-hue-return}
+
+The current hue value, from 0 to 255.
+
+---
+
+### `void rgb_matrix_increase_sat(void)` {#api-rgb-matrix-increase-sat}
+
+Increase the global effect saturation.
+
+---
+
+### `void rgb_matrix_increase_sat_noeeprom(void)` {#api-rgb-matrix-increase-sat-noeeprom}
+
+Increase the global effect saturation. New state is not written to EEPROM.
+
+---
+
+### `void rgb_matrix_decrease_sat(void)` {#api-rgb-matrix-decrease-sat}
+
+Decrease the global effect saturation.
+
+---
+
+### `void rgb_matrix_decrease_sat_noeeprom(void)` {#api-rgb-matrix-decrease-sat-noeeprom}
+
+Decrease the global effect saturation. New state is not written to EEPROM.
+
+---
+
+### `uint8_t rgb_matrix_get_sat(void)` {#api-rgb-matrix-get-sat}
+
+Get the current global effect saturation.
+
+#### Return Value {#api-rgb-matrix-get-sat-return}
+
+The current saturation value, from 0 to 255.
+
+---
+
+### `void rgb_matrix_increase_val(void)` {#api-rgb-matrix-increase-val}
+
+Increase the global effect value (brightness).
+
+---
+
+### `void rgb_matrix_increase_val_noeeprom(void)` {#api-rgb-matrix-increase-val-noeeprom}
+
+Increase the global effect value (brightness). New state is not written to EEPROM.
+
+---
+
+### `void rgb_matrix_decrease_val(void)` {#api-rgb-matrix-decrease-val}
+
+Decrease the global effect value (brightness).
+
+---
+
+### `void rgb_matrix_decrease_val_noeeprom(void)` {#api-rgb-matrix-decrease-val-noeeprom}
+
+Decrease the global effect value (brightness). New state is not written to EEPROM.
+
+---
+
+### `uint8_t rgb_matrix_get_val(void)` {#api-rgb-matrix-get-val}
+
+Get the current global effect value (brightness).
+
+#### Return Value {#api-rgb-matrix-get-val-return}
+
+The current brightness value, from 0 to 255.
+
+---
+
+### `void rgb_matrix_increase_speed(void)` {#api-rgb-matrix-increase-speed}
+
+Increase the effect speed.
+
+---
+
+### `void rgb_matrix_increase_speed_noeeprom(void)` {#api-rgb-matrix-increase-speed-noeeprom}
+
+Increase the effect speed. New state is not written to EEPROM.
+
+---
+
+### `void rgb_matrix_decrease_speed(void)` {#api-rgb-matrix-decrease-speed}
+
+Decrease the effect speed.
+
+---
+
+### `void rgb_matrix_decrease_speed_noeeprom(void)` {#api-rgb-matrix-decrease-speed-noeeprom}
+
+Decrease the effect speed. New state is not written to EEPROM.
+
+---
+
+### `void rgb_matrix_set_speed(uint8_t speed)` {#api-rgb-matrix-set-speed}
+
+Set the effect speed.
+
+#### Arguments {#api-rgb-matrix-set-speed-arguments}
+
+ - `uint8_t speed`  
+   The new speed to set, from 0 to 255.
+
+---
+
+### `void rgb_matrix_set_speed_noeeprom(uint8_t speed)` {#api-rgb-matrix-set-speed-noeeprom}
+
+Set the effect speed. New state is not written to EEPROM.
+
+#### Arguments {#api-rgb-matrix-set-speed-noeeprom-arguments}
+
+ - `uint8_t speed`  
+   The new speed to set, from 0 to 255.
+
+---
+
+### `uint8_t rgb_matrix_get_speed(void)` {#api-rgb-matrix-get-speed}
+
+Get the current effect speed.
+
+#### Return Value {#api-rgb-matrix-get-speed-return}
+
+The current effect speed, from 0 to 255.
+
+---
+
+### `void rgb_matrix_sethsv(uint8_t h, uint8_t s, uint8_t v)` {#api-rgb-matrix-sethsv}
+
+Set the global effect hue, saturation, and value (brightness).
+
+### Arguments {#api-rgb-matrix-sethsv-arguments}
+
+ - `uint8_t h`  
+   The hue to set, from 0 to 255.
+ - `uint8_t s`  
+   The saturation to set, from 0 to 255.
+ - `uint8_t v`  
+   The value (brightness) to set, from 0 to 255.
+
+---
+
+### `void rgb_matrix_sethsv_noeeprom(uint8_t h, uint8_t s, uint8_t v)` {#api-rgb-matrix-sethsv-noeeprom}
+
+Set the global effect hue, saturation, and value (brightness). New state is not written to EEPROM.
+
+#### Arguments {#api-rgb-matrix-sethsv-noeeprom-arguments}
+
+ - `uint8_t h`  
+   The hue to set, from 0 to 255.
+ - `uint8_t s`  
+   The saturation to set, from 0 to 255.
+ - `uint8_t v`  
+   The value (brightness) to set, from 0 to 255.
+
+---
+
+### `HSV rgb_matrix_get_hsv(void)` {#api-rgb-matrix-get-hsv}
+
+Get the current global effect hue, saturation, and value (brightness).
+
+#### Return Value {#api-rgb-matrix-get-hsv-return}
+
+The current effect HSV as an `HSV` struct.
+
+---
+
+### `void rgb_matrix_reload_from_eeprom(void)` {#api-rgb-matrix-reload-from-eeprom}
+
+Reload the effect configuration (enabled, mode and color) from EEPROM.
+
+---
+
+### `bool rgb_matrix_get_suspend_state(void)` {#api-rgb-matrix-get-suspend-state}
+
+Get the current suspend state of RGB Matrix.
+
+#### Return Value {#api-rgb-matrix-get-suspend-state-return}
+
+`true` if RGB Matrix is currently in the suspended state.
+
+---
+
+### `bool rgb_matrix_indicators_kb(void)` {#api-rgb-matrix-indicators-kb}
+
+Keyboard-level callback, invoked after current animation frame is rendered but before it is flushed to the LEDs.
+
+#### Return Value {#api-rgb-matrix-indicators-kb-return}
+
+Currently unused.
+
+---
+
+### `bool rgb_matrix_indicators_user(void)` {#api-rgb-matrix-indicators-user}
+
+Keymap-level callback, invoked after current animation frame is rendered but before it is flushed to the LEDs.
+
+#### Return Value {#api-rgb-matrix-indicators-user-return}
+
+`true` to continue running the keyboard-level callback.
+
+---
+
+### `bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max)` {#api-rgb-matrix-indicators-advanced-kb}
+
+Keyboard-level callback, invoked after current animation frame is rendered but before it is flushed to the LEDs.
+
+### Arguments {#api-rgb-matrix-indicators-advanced-kb-arguments}
+
+ - `uint8_t led_min`  
+   The index of the first LED in this batch.
+ - `uint8_t led_max`  
+   The index of the last LED in this batch.
+
+#### Return Value {#api-rgb-matrix-indicators-advanced-kb-return}
+
+Currently unused.
+
+---
+
+### `bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max)` {#api-rgb-matrix-indicators-advanced-user}
+
+Keymap-level callback, invoked after current animation frame is rendered but before it is flushed to the LEDs.
+
+### Arguments {#api-rgb-matrix-indicators-advanced-user-arguments}
+
+ - `uint8_t led_min`  
+   The index of the first LED in this batch.
+ - `uint8_t led_max`  
+   The index of the last LED in this batch.
+
+#### Return Value {#api-rgb-matrix-indicators-advanced-user-return}
+
+`true` to continue running the keyboard-level callback.

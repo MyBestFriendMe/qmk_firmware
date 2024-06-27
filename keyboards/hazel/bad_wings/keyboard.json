@@ -10,10 +10,13 @@
   },
   "processor": "RP2040",
   "bootloader": "rp2040",
+<<<<<<< Updated upstream
   "matrix_size": {
     "cols": 8,
     "rows": 5
   },
+=======
+>>>>>>> Stashed changes
   "diode_direction": "COL2ROW",
   "features": {
     "bootmagic": true,

@@ -4,6 +4,10 @@
     "maintainer": "nooges",
     "bootloader": "atmel-dfu",
     "encoder": {
+<<<<<<< Updated upstream
+=======
+        "enabled": true,
+>>>>>>> Stashed changes
         "rotary": [
             {"pin_a": "C7", "pin_b": "B5"},
             {"pin_a": "D7", "pin_b": "D4"}

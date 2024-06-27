@@ -1,6 +1,10 @@
 {
     "config": { "features": {"tri_layer": true} },
+<<<<<<< Updated upstream
     "keyboard": "keebio/iris",
+=======
+    "keyboard": "keebio/iris/rev8",
+>>>>>>> Stashed changes
     "keymap": "default",
     "layout": "LAYOUT",
     "layers": [

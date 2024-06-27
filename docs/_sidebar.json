@@ -64,6 +64,7 @@
                         "text": "Development Environments",
                         "items": [{ "text": "Docker Guide", "link": "/getting_started_docker" }]
                     },
+<<<<<<< Updated upstream
                     {
                         "text": "Flashing",
                         "items": [
@@ -71,6 +72,9 @@
                             { "text": "Flashing ATmega32A (ps2avrgb)", "link": "/flashing_bootloadhid" }
                         ]
                     },
+=======
+                    { "text": "Flashing", "link": "/flashing" },
+>>>>>>> Stashed changes
                     {
                         "text": "IDEs",
                         "items": [
@@ -212,7 +216,12 @@
                         "text": "Most Recent ChangeLog",
                         "link": "/ChangeLog/20240526"
                     },
+<<<<<<< Updated upstream
                     { "text": "Past Breaking Changes", "link": "/breaking_changes_history" }
+=======
+                    { "text": "Past Breaking Changes", "link": "/breaking_changes_history" },
+                    { "text": "Deprecation Policy", "link": "/support_deprecation_policy" }
+>>>>>>> Stashed changes
                 ]
             },
 
