@@ -1,10 +1,10 @@
 {
     "keyboard_name": "K-Numpad21",
     "manufacturer": "Handwired",
-    "url": "",
+    "url": "https://www.thingiverse.com/thing:4950556",
     "maintainer": "qmk",
     "usb": {
-        "vid": "0x0349",
+        "vid": "0x20A0",
         "pid": "0x6060",
         "device_version": "0.0.1"
     },
