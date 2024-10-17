@@ -4,8 +4,8 @@
     "url": "",
     "maintainer": "qmk",
     "usb": {
-        "vid": "0x0349",
-        "pid": "0x0055",
+        "vid": "0x20A0",
+        "pid": "0x42FE",
         "device_version": "0.0.1"
     },
     "rgblight": {
