@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Dactyl-Manuform (5x7_CC)",
     "manufacturer": "mybestfriendme",
-    "url": "",
+    "url": "https://github.com/MyBestFriendMe/dactyl-cmc",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x20A0",
