@@ -12,6 +12,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#undef ENCODERS_PAD_A
+#undef ENCODERS_PAD_B
+
+#define ENCODERS_PAD_A { GP2 }
+#define ENCODERS_PAD_B { GP3 }
+#define ENCODER_RESOLUTION 4
 
 #pragma once
 

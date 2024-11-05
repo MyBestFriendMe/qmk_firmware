@@ -1,0 +1,12 @@
+{
+    "keyboard_name": "Dactyl-CC (5x7)",
+    "manufacturer": "mybestfriendme",
+    "url": "https://github.com/MyBestFriendMe/dactyl-cmc",
+    "maintainer": "qmk",
+    "rgblight": {
+        "led_count": 66,
+        "split_count": [33, 33]
+    },
+    "diode_direction": "COL2ROW",
+    "bootloader": "caterina"
+}
