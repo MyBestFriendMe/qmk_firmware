@@ -95,12 +95,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-#if defined(ENCODER_ENABLE)
-#define ENCODER_A_PINS { GP2 }
-#define ENCODER_B_PINS { GP3 }
-#endif
-
-
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)},
@@ -110,3 +104,55 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 
+/*
+layer_state_t layer_state_set_user(layer_state_t state) {
+  return update_tri_layer_state(_QWERTY, _RAISE, _LOWER, _ADJUST);
+}
+*/
+
+//SSD1306 OLED update loop, make sure to enable OLED_ENABLE=yes in rules.mk
+#ifdef OLED_ENABLE
+
+// When you add source files to SRC in rules.mk, you can use functions.
+const char *read_layer_state(void);
+void set_keylog(uint16_t keycode, keyrecord_t *record);
+const char *read_keylog(void);
+const char *read_keylogs(void);
+
+// const char *read_mode_icon(bool swap);
+// const char *read_host_led_state(void);
+// void set_timelog(void);
+// const char *read_timelog(void);
+
+bool oled_task_user() {
+
+    led_t led_state = host_keyboard_led_state();
+    // If you want to change the display of OLED, you need to change here
+    //oled_write_ln(rgb_state_reader(), false);
+    oled_write_ln(read_layer_state(), false);
+    //oled_write_ln(read_keylog(), false);
+    oled_write_ln(read_keylogs(), false);
+    //oled_write_ln(led_state.caps_lock ? PSTR("Caps Lock On") : PSTR("Caps Lock Off"), false);
+    //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
+    //oled_write_ln(read_host_led_state(), false);
+    //oled_write_ln(read_timelog(), false);
+
+    // Host Keyboard LED Status
+    //led_t led_state = host_keyboard_led_state();
+    oled_write_P(led_state.num_lock ? PSTR("NUM") : PSTR("    "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
+
+    return false;
+    }
+
+#endif // OLED_ENABLE
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+#ifdef OLED_ENABLE
+    set_keylog(keycode, record);
+#endif
+    // set_timelog();
+  }
+  return true;
+}
