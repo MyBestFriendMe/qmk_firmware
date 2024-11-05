@@ -11,4 +11,16 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 SPLIT_KEYBOARD = yes		# Keyboard has two controllers
+ENCODER_ENABLE = yes		# Encoder Functionality Enabled
+ENCODER_MAP_ENABLE = yes	# Ability to use Keymap with encoder
 LTO_ENABLE = yes 			# Optimise
+
+
+# If you want to change the display of OLED, you need to change here
+SRC +=  ./lib/rgb_state_reader.c \
+        ./lib/layer_state_reader.c \
+        ./lib/logo_reader.c \
+        ./lib/keylogger.c \
+        # ./lib/mode_icon_reader.c \
+        # ./lib/host_led_state_reader.c \
+        # ./lib/timelogger.c \
