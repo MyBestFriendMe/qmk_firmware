@@ -15,6 +15,8 @@ ENCODER_ENABLE = yes		# Encoder Functionality Enabled
 ENCODER_MAP_ENABLE = yes	# Ability to use Keymap with encoder
 LTO_ENABLE = yes 			# Optimise
 
+WS2812_DRIVER = vendor
+SERIAL_DRIVER = vendor
 
 # If you want to change the display of OLED, you need to change here
 SRC +=  ./lib/rgb_state_reader.c \

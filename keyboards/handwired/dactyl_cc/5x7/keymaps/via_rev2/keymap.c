@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              _______, _______,
              _______,
              _______, _______, _______
-    ),
+    )
 };
 
 #if defined(ENCODER_MAP_ENABLE)
@@ -125,10 +125,10 @@ const char *read_keylogs(void);
 // const char *read_timelog(void);
 
 bool oled_task_user() {
-
+    rgblight_get_mode(led_state_reader(), false);
     led_t led_state = host_keyboard_led_state();
     // If you want to change the display of OLED, you need to change here
-    //oled_write_ln(rgb_state_reader(), false);
+    oled_write_ln(rgb_state_reader(), false);
     oled_write_ln(read_layer_state(), false);
     //oled_write_ln(read_keylog(), false);
     oled_write_ln(read_keylogs(), false);
@@ -141,6 +141,8 @@ bool oled_task_user() {
     //led_t led_state = host_keyboard_led_state();
     oled_write_P(led_state.num_lock ? PSTR("NUM") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
+
+    rgblight_get_mode(led_state_reader(), false);
 
     return false;
     }

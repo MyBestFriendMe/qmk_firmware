@@ -12,12 +12,21 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#undef ENCODERS_PAD_A
-#undef ENCODERS_PAD_B
 
-#define ENCODERS_PAD_A { GP2 }
-#define ENCODERS_PAD_B { GP3 }
-#define ENCODER_RESOLUTION 4
+#undef ENCODERS_A_PINS
+#undef ENCODERS_B_PINS
+
+#define ENCODER_A_PINS { }
+#define ENCODER_B_PINS { }
+#define ENCODER_RESOLUTIONS { }
+#define ENCODER_A_PINS_RIGHT { GP3 }
+#define ENCODER_B_PINS_RIGHT { GP4 }
+#define ENCODER_RESOLUTIONS_RIGHT { 4 }
+
+#define SERIAL_USART_FULL_DUPLEX     // Enable full duplex operation mode.
+#define SERIAL_USART_TX_PIN { GP7 }  // USART TX pin
+#define SERIAL_USART_RX_PIN { GP8 }  // USART RX pin
+
 
 #pragma once
 
