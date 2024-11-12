@@ -1,12 +1,12 @@
 
-#undef ENCODERS_PAD_A
-#undef ENCODERS_PAD_B
+#undef ENCODER_A_PINS
+#undef ENCODER_B_PINS
 
+#define ENCODER_A_PINS { F4 }
+#define ENCODER_B_PINS { F5 }
+#define ENCODER_RESOLUTION { 4 }
 
-#define ENCODERS_PAD_A { F5 }
-#define ENCODERS_PAD_B { F6 }
-#define ENCODER_RESOLUTION 4
-
+#pragma once
 
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_EFFECT_BREATHING

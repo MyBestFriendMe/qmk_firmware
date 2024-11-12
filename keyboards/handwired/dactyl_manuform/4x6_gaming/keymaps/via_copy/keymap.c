@@ -43,14 +43,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-#if defined(ENCODER_MAP_ENABLE)
+#ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)},
     [1] = { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)},
     [2] = { ENCODER_CCW_CW(UG_VALD, UG_VALU)},
-    [3] = { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)},
+    [3] = { ENCODER_CCW_CW(KC_MS_WH_UP, KC_MS_WH_DOWN)}
 };
-#endif
+#endif // ENCODER MAP
 
 /*
 layer_state_t layer_state_set_user(layer_state_t state) {
@@ -66,9 +66,10 @@ const char *read_layer_state(void);
 void set_keylog(uint16_t keycode, keyrecord_t *record);
 const char *read_keylog(void);
 const char *read_keylogs(void);
+const char *read_rgb_info(void);
 
 // const char *read_mode_icon(bool swap);
-// const char *read_host_led_state(void);
+const char *read_host_led_state(void);
 // void set_timelog(void);
 // const char *read_timelog(void);
 
@@ -76,7 +77,7 @@ bool oled_task_user() {
 
     led_t led_state = host_keyboard_led_state();
     // If you want to change the display of OLED, you need to change here
-    //oled_write_ln(rgb_state_reader(), false);
+    oled_write_ln(rgb_state_reader(), false);
     oled_write_ln(read_layer_state(), false);
     //oled_write_ln(read_keylog(), false);
     oled_write_ln(read_keylogs(), false);
@@ -89,6 +90,7 @@ bool oled_task_user() {
     //led_t led_state = host_keyboard_led_state();
     oled_write_P(led_state.num_lock ? PSTR("NUM") : PSTR("    "), false);
     oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
+    //rgblight_get_mode(led_state_reader(), false);
 
     return false;
     }
