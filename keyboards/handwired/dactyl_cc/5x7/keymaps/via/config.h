@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SPLIT_USB_DETECT
 #define SPLIT_USB_TIMEOUT 2500
 #define SPLIT_TRANSPORT_MIRROR
+#define USB_SUSPEND_WAKEUP_DELAY 200
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT { 33, 33 }
 //#define MASTER_RIGHT
