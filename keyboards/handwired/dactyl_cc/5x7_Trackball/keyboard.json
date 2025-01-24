@@ -11,12 +11,18 @@
     "ws2812": {
         "pin": "GP0"
     },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "pointing_device": true
+    },
     "rgblight": {
         "led_count": 66,
         "split_count": [33, 33]
     },
     "matrix_pins": {
-        "cols": ["GP29", "GP28", "GP27", "GP26", "GP22", "GP20", "GP23", "GP21"],
+        "cols": ["GP26", "GP22", "GP21", "GP20", "GP19", "GP18", "GP17", "GP16"],
         "rows": ["GP10",  "GP11",  "GP12",  "GP13",  "GP14",  "GP15"]
     },
     "diode_direction": "COL2ROW",

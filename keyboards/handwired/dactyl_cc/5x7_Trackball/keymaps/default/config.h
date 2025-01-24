@@ -12,7 +12,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
+/*
 #undef ENCODERS_A_PINS
 #undef ENCODERS_B_PINS
 
@@ -23,13 +23,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ENCODER_B_PINS_RIGHT { GP4 }
 #define ENCODER_RESOLUTIONS_RIGHT { 4 }
 // Encoders might not be used
+*/
+#pragma once
+
 
 #define SERIAL_USART_FULL_DUPLEX     // Enable full duplex operation mode.
-#define SERIAL_USART_TX_PIN { GP7 }  // USART TX pin
-#define SERIAL_USART_RX_PIN { GP8 }  // USART RX pin
-
-
-#pragma once
+#define SERIAL_USART_TX_PIN  GP8  // USART TX pin
+#define SERIAL_USART_RX_PIN  GP9  // USART RX pin
 
 #define MASTER_LEFT
 #define SPLIT_USB_DETECT
@@ -59,4 +59,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define RGBLIGHT_SAT_STEP 6 // number of steps to increment the saturation by
 #    define RGBLIGHT_VAL_STEP 6 // number of steps to increment the brightness by
 #    define RGBLIGHT_SLEEP      //  the RGB lighting will be switched off when the host goes to sleep
+#undef I2C_DRIVER
+#define I2C_DRIVER I2C1
+#undef I2C1_SCL_PIN
+#define I2C1_SCL_PIN GP27
+#undef I2C1_SDA_PIN
+#define I2C1_SDA_PIN GP26
+
+
 #endif
+
+
+/* PMW3389 Settings */
+#define PMW33XX_LIFTOFF_DISTANCE 0x00
+#define SPI_SCK_PIN GP2
+#define SPI_MISO_PIN GP4
+#define SPI_MOSI_PIN GP3
+#define PMW33XX_CS_PIN GP5
+#define SPLIT_POINTING_ENABLE
+#define POINTING_DEVICE_RIGHT
+#define SPI_DRIVER SPI0
