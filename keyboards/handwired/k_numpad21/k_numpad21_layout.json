@@ -1,11 +1,12 @@
 {
     "name": "k_numpad21",
-    "vendorId": "0x0349",
+    "vendorId": "0x20A0",
     "productId": "0x6060",
     "matrix": {
         "rows": 6,
         "cols": 4
     },
+    "keycodes": [ "qmk_lighting" ],
     "layouts": {
         "keymap": [
             [

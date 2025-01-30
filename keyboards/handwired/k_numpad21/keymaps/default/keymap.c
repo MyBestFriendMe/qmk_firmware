@@ -14,6 +14,8 @@ layer_state_t layer_state_set_user(layer_state_t state) {  //Make sure that LED 
 return state;
 }
 
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*
    *
@@ -34,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [0] = LAYOUT_numpad_6x4(
-    TG(1), KC_MUTE, KC_VOLD, KC_VOLU,
+    LT(1, KC_CALC), KC_MUTE, KC_VOLD, KC_VOLU,
     KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
     KC_P7,   KC_P8,   KC_P9,
     KC_P4,   KC_P5,   KC_P6,   KC_PPLS,

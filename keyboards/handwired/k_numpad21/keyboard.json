@@ -11,9 +11,15 @@
     "tapping": {
         "term": 400
     },
+    "rgblight": {
+        "led_count": 20
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
     "matrix_pins": {
-        "cols": ["B2", "B1", "F6", "F4"],
-        "rows": ["D1", "D4", "C6", "D7", "E6", "B4"]
+        "cols": ["B6", "B2", "B3", "B1"],
+        "rows": ["B5", "B4", "E6", "D7", "C6", "D4"]
     },
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
