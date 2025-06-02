@@ -11,12 +11,13 @@
 #define _SHIFT  3
 */
 
-//Pointing Device Scrolling
+/*Pointing Device Scrolling
 enum custom_keycodes {
-    DRAG_SCROLL = QK_USER_0,
-    CPI_UP = QK_USER_1,
-    CPI_DN = QK_USER_2,
+    DRAG_SCROLL = QK_KB_0,
+    DPI_UP,
+    DPI_DN,
 };
+*/
 
 bool set_scrolling = false;
 
@@ -24,7 +25,7 @@ bool set_scrolling = false;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         // left hand
-        KC_EQL,    KC_1,    KC_2,    KC_3,   KC_4,   KC_5,   TG(2),
+        KC_EQL,    KC_1,    KC_2,    KC_3,   KC_4,   KC_5,   TG(1),
         KC_ESC,    KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,   KC_CUT,
         KC_TAB,    KC_A,    KC_S,    KC_D,   KC_F,   KC_G,   KC_CALC,
         KC_CAPS,   KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,
@@ -56,8 +57,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                     _______, _______, _______,
                                     _______,
         // right hand
-                          CPI_UP,    KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,    KC_F12,
-                          CPI_DN,    _______,   _______,   _______,   _______,   _______,   _______,
+                          _______,    KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,    KC_F12,
+                          _______,    _______,   _______,   _______,   _______,   _______,   _______,
                           _______,   _______,   _______,   _______,   _______,   _______,   _______,
                                      _______,   _______,   _______,   _______,   _______,   _______,
                                                 _______,   _______,   _______,   _______,   _______,
@@ -135,6 +136,7 @@ void set_keylog(uint16_t keycode, keyrecord_t *record);
 const char *read_keylog(void);
 const char *read_keylogs(void);
 const char *read_rgb_info(void);
+const char *read_cpi_str(void);
 
 const char *read_mode_icon(bool swap);
 const char *read_host_led_state(void);
@@ -145,7 +147,8 @@ bool oled_task_user() {
     //rgblight_get_mode(led_state_reader(), false);
     led_t led_state = host_keyboard_led_state();
     // If you want to change the display of OLED, you need to change here
-    oled_write_ln(read_layer_state(), false);
+    oled_write_P(read_layer_state(), false);
+    oled_write_P(read_cpi_str(), false);
     //oled_write_ln(read_keylog(), false);
     oled_write_ln(read_keylogs(), false);
     //oled_write_ln(led_state.caps_lock ? PSTR("Caps Lock On") : PSTR("Caps Lock Off"), false);
@@ -210,18 +213,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // Toggle set_scrolling when DRAG_SCROLL key is pressed or released
             set_scrolling = record->event.pressed;
             break;
-        default:
+
+        case DPI_UP:
+          if (record->event.pressed) {
+              pointing_device_set_cpi(+ POINTING_DEVICE_CPI_INCREMENT); // Increase CPI
+          }
+
+          return false;
+        case DPI_DN:
+          if (record->event.pressed) {
+              pointing_device_set_cpi(- POINTING_DEVICE_CPI_INCREMENT); // Decrease CPI
+          }
+
+          return false;
+                  default:
             break;
-        case CPI_UP:
-          if (record->event.pressed) {
-              pointing_device_set_cpi(POINTING_DEVICE_CPI_INCREMENT); // Increase CPI
-          }
-          return false;
-        case CPI_DN:
-          if (record->event.pressed) {
-              pointing_device_set_cpi(-POINTING_DEVICE_CPI_INCREMENT); // Decrease CPI
-          }
-          return false;
     }
     return true;
 }
