@@ -23,7 +23,7 @@ const char *read_layer_state(void) {
     break;
   case L_ADJUST:
   case L_ADJUST_TRI:
-    snprintf(layer_state_str, sizeof(layer_state_str), "Layer3");
+    snprintf(layer_state_str, sizeof(layer_state_str), "Gaming");
     break;
   default:
     snprintf(layer_state_str, sizeof(layer_state_str), "Undef-%u", layer_state);
