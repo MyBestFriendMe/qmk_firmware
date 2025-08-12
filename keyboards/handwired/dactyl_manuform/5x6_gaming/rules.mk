@@ -12,11 +12,15 @@ RGBLIGHT_ENABLE = yes       # Enable keyboard RGB underglow
 AUDIO_ENABLE = no           # Audio output
 ENCODER_ENABLE = yes		# Enable Encoder Features
 ENCODER_MAP_ENABLE = yes  	# Encoder Map
-OLED_ENABLE = no			# Enable OLED Display
-LTO_ENABLE = yes			# Optimise
+OLED_ENABLE = yes			# Enable OLED Display
+LTO_ENABLE = no 			# Optimise
 VIA_ENABLE = yes			# VIA Usage
+WS2812_DRIVER_REQUIRED = yes
 
-
+WS2812_DRIVER = vendor
+BOARD = GENERIC_RP_RP2040
+OLED_DRIVER = ssd1306
+OLED_TRANSPORT = i2c
 
 # If you want to change the display of OLED, you need to change here
  SRC += ./lib/layer_state_reader.c \
@@ -26,5 +30,4 @@ VIA_ENABLE = yes			# VIA Usage
 		./lib/rgb_state_reader.c \
         # ./lib/host_led_state_reader.c \
         # ./lib/timelogger.c \
-		#
 

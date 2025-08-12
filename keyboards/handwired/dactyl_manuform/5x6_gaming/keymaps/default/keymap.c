@@ -1,5 +1,3 @@
-// Copyright 2023 Adam Tombleson (@rekarnar)
-// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
 
@@ -50,3 +48,49 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 
 #endif
+
+/*
+layer_state_t layer_state_set_user(layer_state_t state) {
+  return update_tri_layer_state(_QWERTY, _RAISE, _LOWER, _ADJUST);
+}
+*/
+
+//SSD1306 OLED update loop, make sure to enable OLED_ENABLE=yes in rules.mk
+#ifdef OLED_ENABLE
+
+// When you add source files to SRC in rules.mk, you can use functions.
+const char *read_layer_state(void);
+void set_keylog(uint16_t keycode, keyrecord_t *record);
+const char *read_keylog(void);
+const char *read_keylogs(void);
+const char *read_rgb_info(void);
+
+const char *read_mode_icon(bool swap);
+const char *read_host_led_state(void);
+void set_timelog(void);
+const char *read_timelog(void);
+
+bool oled_task_user() {
+    //rgblight_get_mode(led_state_reader(), false);
+    led_t led_state = host_keyboard_led_state();
+    // If you want to change the display of OLED, you need to change here
+    oled_write_ln(read_layer_state(), false);
+    //oled_write_ln(read_keylog(), false);
+    oled_write_ln(read_keylogs(), false);
+    //oled_write_ln(led_state.caps_lock ? PSTR("Caps Lock On") : PSTR("Caps Lock Off"), false);
+    //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
+    //oled_write_ln(read_host_led_state(), false);
+    //oled_write_ln(read_timelog(), false);
+
+    // Host Keyboard LED Status
+    //led_t led_state = host_keyboard_led_state();
+    oled_write_P(led_state.num_lock ? PSTR("NUM") : PSTR("    "), false);
+    oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
+    oled_write_P(read_rgb_info(), false);
+    //rgblight_get_mode(led_state_reader(), false);
+
+    return false;
+    }
+
+#endif // OLED_ENABLE
+
