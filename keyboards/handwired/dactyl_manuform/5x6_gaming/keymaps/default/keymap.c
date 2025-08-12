@@ -48,4 +48,5 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [2] = { ENCODER_CCW_CW(UG_VALD, UG_VALU)},
     [3] = { ENCODER_CCW_CW(UG_PREV, UG_NEXT)},
 };
+
 #endif
