@@ -30,7 +30,7 @@
 #    define RGBLIGHT_SAT_STEP 6 // number of steps to increment the saturation by
 #    define RGBLIGHT_VAL_STEP 6 // number of steps to increment the brightness by
 #    define RGBLIGHT_SLEEP      //  the RGB lighting will be switched off when the host goes to sleep
-#    define RGBLIGHT_LED_COUNT 19
+#    define RGBLIGHT_LED_COUNT 24
 #    define WS2812_DI_PIN GP0
 #endif
 
