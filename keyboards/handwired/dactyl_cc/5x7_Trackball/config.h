@@ -49,7 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // PMW3389 Settings
 #ifdef POINTING_DEVICE_ENABLE
-#define PMW33XX_LIFTOFF_DISTANCE 0x03
+#define PMW33XX_LIFTOFF_DISTANCE 0x04
 #define POINTING_DEVICE_RIGHT
 #define SPI_DRIVER SPID0
 #define SPI_SCK_PIN GP2
